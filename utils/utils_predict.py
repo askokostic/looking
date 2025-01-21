@@ -85,11 +85,13 @@ def preprocess_pifpaf(annotations, im_size=None, enlarge_boxes=True, min_conf=0.
 
     boxes = []
     keypoints = []
+    ids = []
     enlarge = 1 if enlarge_boxes else 2  # Avoid enlarge boxes for social distancing
 
     for dic in annotations:
         kps = prepare_pif_kps(dic['keypoints'])
         box = dic['bbox']
+        id = dic['id_']
         try:
             conf = dic['score']
             # Enlarge boxes
@@ -127,8 +129,9 @@ def preprocess_pifpaf(annotations, im_size=None, enlarge_boxes=True, min_conf=0.
             box.append(conf)
             boxes.append(box)
             keypoints.append(kps)
+            ids.append(id)
 
-    return boxes, keypoints
+    return boxes, keypoints, ids
 
 def filecreation(dirname):
     mydir = os.path.join(dirname,'_'+datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
