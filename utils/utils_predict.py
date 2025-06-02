@@ -91,7 +91,7 @@ def preprocess_pifpaf(annotations, im_size=None, enlarge_boxes=True, min_conf=0.
     for dic in annotations:
         kps = prepare_pif_kps(dic['keypoints'])
         box = dic['bbox']
-        id = dic['id_']
+        id = dic.get('id_', None)
         try:
             conf = dic['score']
             # Enlarge boxes
